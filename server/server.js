@@ -6,7 +6,7 @@ import router from './router/route.js';
 
 const app = express();
 
-/** middlewares */
+/** middleware */
 app.use(express.json());
 app.use(cors());
 app.use(morgan('tiny'));
