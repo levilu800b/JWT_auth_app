@@ -154,20 +154,26 @@ export async function login(req, res) {
 /** GET: http://localhost:8080/api/user/example123 */
 
 export async function getUser(req, res) {
-	const { username } = req.params;
-
 	try {
-		UserModel.findOne({ username })
-			.then((user) => {
-				return res.status(200).send({ user });
-			}
-			)
-			.catch((error) => {
-				return res.status(404).send({ error: 'Username not Found' });
-			}
-			);
+		const { username } = req.params;
+
+		if (!username) {
+			return res.status(400).send({ error: 'Invalid Username' });
+		}
+
+		const user = await UserModel.findOne({ username });
+
+		if (!user) {
+			return res.status(404).send({ error: "Couldn't find the user" });
+		}
+
+		/** remove password from user */
+		const { password, ...rest } = user.toJSON();
+
+		return res.status(200).send(rest);
 	} catch (error) {
-		return res.status(500).send({ error });
+		console.error(error);
+		return res.status(500).send({ error: 'Server Error' });
 	}
 }
 
