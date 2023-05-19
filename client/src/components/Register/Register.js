@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import avatar from '../../assets/profile.png';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { registerValidation } from '../../helper/validate';
-import convertToBase64  from '../../helper/convert';
+import convertToBase64 from '../../helper/convert';
+import { registerUser } from '../../helper/helper';
 
 import styles from '../../styles/Username.module.css';
 
 export default function Register() {
+	const navigate = useNavigate();
 	const [file, setFile] = useState();
 
 	const formik = useFormik({
@@ -21,8 +23,19 @@ export default function Register() {
 		validateOnBlur: false,
 		validateOnChange: false,
 		onSubmit: async (values) => {
-      values = await Object.assign(values, { profile: file || ''})
-			console.log(values);
+			values = await Object.assign(values, { profile: file || '' });
+			let registerPromise = registerUser(values);
+			toast.promise(
+				registerPromise,
+				{
+					loading: 'Creating...',
+					success: <b>Register Successfully...!</b>,
+					error: <b>Could not Register.</b>,
+				},
+				registerPromise.then(function () {
+					navigate('/');
+				}),
+			);
 		},
 	});
 
@@ -46,9 +59,18 @@ export default function Register() {
 					<form className="py-1" onSubmit={formik.handleSubmit}>
 						<div className="profile flex justify-center py-4">
 							<label htmlFor="profile">
-								<img src={file || avatar} className={styles.profile_img} alt="avatar" />
+								<img
+									src={file || avatar}
+									className={styles.profile_img}
+									alt="avatar"
+								/>
 							</label>
-							<input onChange={onUpload} type="file" id="profile" name="profile" />
+							<input
+								onChange={onUpload}
+								type="file"
+								id="profile"
+								name="profile"
+							/>
 						</div>
 						<div className="textbox flex flex-col items-center gap-6">
 							<input
