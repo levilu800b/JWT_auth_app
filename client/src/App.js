@@ -6,12 +6,14 @@ import Username from './components/UserName/Username';
 import Password from './components/Password/Password';
 import Register from './components/Register/Register';
 import Profile from './components/Profile/Profile';
-import Reset from './components/Reset/Reset';
 import Recovery from './components/Recovery/Recovery';
+import Reset from './components/Reset/Reset';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 
-/** root routes */
+/** auth middleware */
+import { AuthorizeUser, ProtectRoute } from './middleware/auth';
 
+/** root routes */
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -23,11 +25,19 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/password',
-		element: <Password></Password>,
+		element: (
+			<ProtectRoute>
+				<Password />
+			</ProtectRoute>
+		),
 	},
 	{
 		path: '/profile',
-		element: <Profile></Profile>,
+		element: (
+			<AuthorizeUser>
+				<Profile />
+			</AuthorizeUser>
+		),
 	},
 	{
 		path: '/recovery',
