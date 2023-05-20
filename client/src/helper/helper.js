@@ -73,9 +73,11 @@ export async function verifyPassword({ username, password }) {
 export async function updateUser(response) {
 	try {
 		const token = await localStorage.getItem('token');
-		const data = await axios.put('/api/updateuser', response, {
+		const data = await axios.put('/api/updateUser', response, {
 			headers: { Authorization: `Bearer ${token}` },
 		});
+
+        
 
 		return Promise.resolve({ data });
 	} catch (error) {
