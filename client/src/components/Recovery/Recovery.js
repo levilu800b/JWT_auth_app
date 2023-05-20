@@ -42,7 +42,7 @@ export default function Recovery() {
 		});
 
 		sentPromise.then((OTP) => {
-			console.log(OTP);
+			//console.log(OTP);
 		});
 	}
 
