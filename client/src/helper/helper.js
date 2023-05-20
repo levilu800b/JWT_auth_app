@@ -16,7 +16,10 @@ export async function getUsername() {
 /** authenticate function */
 export async function authenticate(username) {
 	try {
-		return await axios.post('/api/authenticate', { username });
+		const response = await axios.post('/api/authenticate', { username });
+		const { token } = response.data;
+		localStorage.setItem('token', token);
+		return response;
 	} catch (error) {
 		return { error: "Username doesn't exist...!" };
 	}
@@ -36,7 +39,7 @@ export async function getUser({ username }) {
 export async function registerUser(credentials) {
 	try {
 		const {
-			data: { msg },
+			data: { msg, token },
 			status,
 		} = await axios.post(`/api/register`, credentials);
 
@@ -51,6 +54,7 @@ export async function registerUser(credentials) {
 			});
 		}
 
+		localStorage.setItem('token', token);
 		return Promise.resolve(msg);
 	} catch (error) {
 		return Promise.reject({ error });
@@ -76,8 +80,6 @@ export async function updateUser(response) {
 		const data = await axios.put('/api/updateUser', response, {
 			headers: { Authorization: `Bearer ${token}` },
 		});
-
-        
 
 		return Promise.resolve({ data });
 	} catch (error) {
