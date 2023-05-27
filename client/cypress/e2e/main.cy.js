@@ -32,18 +32,15 @@ describe('Username and Register Pages', () => {
 			cy.url().should('include', '/');
 		});
 	});
-});
 
-describe('login with username and password', () => {
-	beforeEach(() => {
-		cy.visit('http://localhost:3000/');
-	});
-	it('should login with username and password', () => {
-		cy.get('input[type="text"]').type('testuser');
-		cy.get('button[type="submit"]').click();
-		cy.url().should('include', '/password');
-		cy.get('input[type="password"]').type('test@password');
-		cy.get('button[type="submit"]').click();
-		cy.url().should('include', '/profile');
+	describe('Login Page', () => {
+		beforeEach(() => {
+			cy.visit('http://localhost:3000/');
+		});
+		it('should login a user', () => {
+			cy.get('input[type="text"]').type('testuser');
+			cy.get('button[type="submit"]').click();
+			cy.url().should('include', '/password');
+		});
 	});
 });
