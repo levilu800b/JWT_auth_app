@@ -229,7 +229,6 @@ export async function verifyOTP(req, res) {
 		return res.status(201).send({ msg: 'Verified Successfully!' });
 	}
 	return res.status(400).send({ error: 'Invalid OTP' });
-
 }
 
 // successfully redirect user when OTP is valid
