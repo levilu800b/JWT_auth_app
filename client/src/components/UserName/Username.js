@@ -44,6 +44,7 @@ export default function Username() {
 							<input
 								{...formik.getFieldProps('username')}
 								className={styles.textbox}
+								name='username'
 								type="text"
 								placeholder="Username"
 							/>

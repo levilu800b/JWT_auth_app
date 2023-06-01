@@ -16,32 +16,34 @@ export default function Password() {
 
 	const formik = useFormik({
 		initialValues: {
-			password: 'admin@123',
+			password: '',
 		},
 		validate: passwordValidate,
 		validateOnBlur: false,
 		validateOnChange: false,
 		onSubmit: async (values) => {
-      let loginPromise = verifyPassword({
-        username,
-        password: values.password,
-      });
-      toast.promise(loginPromise, {
-        loading: 'Checking...',
-        success: <b>Login Successfully...!</b>,
-        error: <b>Password Not A Match!</b>,
-      });
+			let loginPromise = verifyPassword({
+				username,
+				password: values.password,
+			});
+			toast.promise(loginPromise, {
+				loading: 'Checking...',
+				success: <b>Login Successfully...!</b>,
+				error: <b>Password Not A Match!</b>,
+			});
 
-      loginPromise.then((res) => {
-        let { token } = res.data;
-        localStorage.setItem('token', token);
-        navigate('/profile');
-      }).catch((error) => {
-        // Handle error and display appropriate message
-        toast.error('Password does not match');
-      });
-    },
-  });
+			loginPromise
+				.then((res) => {
+					let { token } = res.data;
+					localStorage.setItem('token', token);
+					navigate('/profile');
+				})
+				.catch((error) => {
+					// Handle error and display appropriate message
+					toast.error('Password does not match');
+				});
+		},
+	});
 
 	if (isLoading) return <h1 className="text-2xl font-bold">isLoading</h1>;
 	if (serverError)
