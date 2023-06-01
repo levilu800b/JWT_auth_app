@@ -43,17 +43,3 @@ describe('Username Page', () => {
 		cy.url().should('include', '/password');
 	})
 });
-
-// describe('use the register credential to login', () => {
-// 		beforeEach(() => {
-// 			cy.visit('http://localhost:3000/');
-// 		});
-// 		it('should login with the registered credential', () => {
-// 			cy.get('input[type="text"]').type('testuser');
-// 			cy.get('button[type="submit"]').click();
-// 			cy.url().should('include', '/password');
-// 			cy.get('input[name="password"]').type('test@password');
-// 			cy.get('button[type="submit"]').click();
-// 			cy.url().should('include', '/password'); // Update the assertion URL to '/password'
-// 		});
-// 	});
