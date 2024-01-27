@@ -37,7 +37,7 @@ export const registerMail = async (req, res) => {
 	const { username, userEmail, text, subject } = req.body;
 
 	// body of the email
-	var email = {
+	let email = {
 		body: {
 			name: username,
 			intro:
@@ -48,7 +48,7 @@ export const registerMail = async (req, res) => {
 		},
 	};
 
-	var emailBody = MailGenerator.generate(email);
+	let emailBody = MailGenerator.generate(email);
 
 	let message = {
 		from: ENV.EMAIL,
