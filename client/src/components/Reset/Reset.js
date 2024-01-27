@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { resetPasswordValidation } from '../../helper/validate';
@@ -12,7 +12,7 @@ import styles from '../../styles/Username.module.css';
 export default function Reset() {
 	const { username } = useAuthStore((state) => state.auth);
 	const navigate = useNavigate();
-	const [{ isLoading, apiData, status, serverError }] =
+	const [{ isLoading, status, serverError }] =
 		useFetch('createResetSession');
 
 	const formik = useFormik({
