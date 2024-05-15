@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('tiny'));
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 /** HTTP GET Request */
 app.get('/', (req, res) => {
