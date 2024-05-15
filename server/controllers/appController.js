@@ -1,8 +1,9 @@
 import UserModel from '../model/User.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import ENV from '../config.js';
+//import ENV from '../config.js';
 import otpGenerator from 'otp-generator';
+import dotenv from 'dotenv';
 
 /** middleware for verify user */
 export async function verifyUser(req, res, next) {
@@ -127,7 +128,7 @@ export async function login(req, res) {
 								userId: user._id,
 								username: user.username,
 							},
-							ENV.JWT_SECRET,
+							process.env.JWT_SECRET,
 							{ expiresIn: '24h' },
 						);
 

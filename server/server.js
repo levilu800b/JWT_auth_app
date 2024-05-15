@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('tiny'));
 
-const port = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 
 /** HTTP GET Request */
 app.get('/', (req, res) => {
@@ -25,8 +25,8 @@ app.use('/api', router);
 connect()
 	.then(() => {
 		try {
-			app.listen(port, () => {
-				console.log(`Server connected to http://localhost:${port}`);
+			app.listen(PORT, () => {
+				console.log(`Server is running on PORT: ${PORT}`);
 			});
 		} catch (error) {
 			console.log('Cannot connect to the server');
